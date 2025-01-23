@@ -8,7 +8,7 @@ public class GameManager {
     private GameBoard gameBoard;
     private int gameCount = 1;
     private int wonGameCount = 0;
-    private GameStatus currentGameStatus;
+    private GameStatus currentGameStatus; // Usando o Enum GameStatus
     private Game[] lastWonGames;
     private String playerNickname;
     private boolean isGameRunning = false;
@@ -21,7 +21,7 @@ public class GameManager {
      */
     public GameManager(int lastGameAmount) {
         this.LAST_GAME_AMOUNT = lastGameAmount;
-        this.lastWonGames = new Game[LAST_GAME_AMOUNT];
+        this.lastWonGames = new Game[LAST_GAME_AMOUNT]; // Inicializa o array de últimos jogos
     }
 
     /**
@@ -32,7 +32,7 @@ public class GameManager {
         while (true) {
             System.out.println("=== MENU ===");
             System.out.println("1. Começar Jogo");
-            System.out.println("2. Mostrar últimos " + LAST_GAME_AMOUNT + " jogos ganhos");
+            System.out.println("2. Mostrar últimos " + LAST_GAME_AMOUNT + " jogos");
             System.out.println("3. Sair");
             System.out.print("Escolha uma opção: ");
             choice = inputScanner.nextInt();
@@ -93,27 +93,38 @@ public class GameManager {
         }
 
         gameBoard = new GameBoard(settings.rows(), settings.cols(), settings.mines());
-        currentGameStatus = GameStatus.Playing;
+        currentGameStatus = GameStatus.Playing; // Reinicializa o estado do jogo
 
         System.out.println(gameBoard);
         isGameRunning = true;
         interpretCommands();
+
+        // Verifica o estado do jogo após o término
+        if (currentGameStatus == GameStatus.Lost) {
+            System.out.println("Jogo perdido. Voltando ao menu principal...");
+        } else if (currentGameStatus == GameStatus.Won) {
+            System.out.println("Jogo ganho. Voltando ao menu principal...");
+        }
+
+        displayStartMenu(); // Retorna ao menu inicial
     }
 
     /**
-     * Exibe os últimos jogos ganhos.
+     * Exibe os últimos jogos ganhos ou perdidos.
      */
     public void displayLastGames() {
-        if (wonGameCount == 0) {
-            System.out.println("Nenhum jogo ganho ainda.");
+        if (wonGameCount == 0 && gameCount == 1) {
+            System.out.println("Nenhum jogo registrado ainda.");
             return;
         }
 
-        System.out.println("=== ÚLTIMOS " + LAST_GAME_AMOUNT + " JOGOS GANHOS ===");
-        for (int i = 0; i < wonGameCount; i++) {
-            Game game = lastWonGames[i % LAST_GAME_AMOUNT];
-            System.out.println("==========================================");
-            System.out.println(game);
+        System.out.println("=== ÚLTIMOS " + LAST_GAME_AMOUNT + " JOGOS ===");
+        for (int i = 0; i < LAST_GAME_AMOUNT; i++) {
+            Game game = lastWonGames[i];
+            if (game != null) {
+                System.out.println("==========================================");
+                System.out.println(game);
+            }
         }
     }
 
@@ -187,7 +198,7 @@ public class GameManager {
 
             // Verifica se o jogador venceu
             if (gameBoard.checkWin()) {
-                currentGameStatus = GameStatus.Won;
+                currentGameStatus = GameStatus.Won; // Define o estado do jogo como Won
                 saveGame();
                 System.out.println("Parabéns, você venceu!");
                 isGameRunning = false;
@@ -210,7 +221,7 @@ public class GameManager {
             gameBoard.revealAllMines(row, col);
             System.out.println(gameBoard);
             System.out.println("Você acertou uma mina! Fim de jogo.");
-            currentGameStatus = GameStatus.Lost;
+            currentGameStatus = GameStatus.Lost; // Define o estado do jogo como Lost
             saveGame();
             isGameRunning = false;
             return;
@@ -219,20 +230,22 @@ public class GameManager {
     }
 
     /**
-     * Salva o jogo na lista de últimos jogos ganhos (se o jogador venceu).
+     * Salva o jogo na lista de últimos jogos (ganhos ou perdidos).
      * Se o array estiver cheio, substitui o jogo mais antigo.
      */
     private void saveGame() {
+        Game game = new Game(currentGameStatus, playerNickname, gameBoard.toString());
+
+        // Adiciona o jogo ao array (substitui o mais antigo se necessário)
+        int index = (wonGameCount + gameCount - 1) % LAST_GAME_AMOUNT;
+        lastWonGames[index] = game;
+
         if (currentGameStatus == GameStatus.Won) {
-            Game game = new Game(currentGameStatus, playerNickname, gameBoard.toString());
-
-            // Adiciona o jogo ao array (substitui o mais antigo se necessário)
-            int index = wonGameCount % LAST_GAME_AMOUNT;
-            lastWonGames[index] = game;
-
             wonGameCount++; // Incrementa o contador de jogos ganhos
-            System.out.println("Jogo salvo com sucesso!");
         }
+
+        gameCount++; // Incrementa o contador de jogos
+        System.out.println("Jogo salvo com sucesso!");
     }
 
     /**

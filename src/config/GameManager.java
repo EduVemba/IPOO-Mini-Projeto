@@ -1,5 +1,8 @@
 package config;
 
+import Enums.Difficulty;
+import Enums.GameStatus;
+
 import java.util.Scanner;
 
 public class GameManager {
@@ -63,19 +66,19 @@ public class GameManager {
         int choice = 0;
         do {
             System.out.print("\n=== Escolha a dificuldade ===");
-            for (int i = 1; i <= Dificulty.values().length; i++) {
-                System.out.printf("\n%d. %s", i, Dificulty.valueOfInt(i).toString());
+            for (int i = 1; i <= Difficulty.values().length; i++) {
+                System.out.printf("\n%d. %s", i, Difficulty.valueOfInt(i).toString());
             }
             System.out.print("\nEscolha uma opção: ");
             choice = inputScanner.nextInt();
             inputScanner.nextLine(); // Consome a nova linha
 
-            if (Dificulty.exists(choice)) {
-                Settings settings = Dificulty.valueOfInt(choice).getSettings();
+            if (Difficulty.exists(choice)) {
+                GameConfiguration settings = Difficulty.valueOfInt(choice).getSettings();
                 startGame(settings);
             } else {
                 choice = 0; // Escolha inválida
-                System.out.println("Valor inserido é inválido.");
+                System.out.println("Dificuldade inválida. Por favor, escolha uma dificuldade válida.");
             }
         } while (choice < 1);
     }
@@ -85,7 +88,7 @@ public class GameManager {
      *
      * @param settings Configurações de dificuldade do jogo.
      */
-    public void startGame(Settings settings) {
+    public void startGame(GameConfiguration settings) {
         System.out.print("Insira a alcunha: ");
         playerNickname = inputScanner.nextLine();
         if (playerNickname.isEmpty()) {
@@ -174,7 +177,7 @@ public class GameManager {
                     System.out.println("Bandeira " + (toggled ? "colocada" : "removida"));
                     break;
                 case "hint":
-                    Coordinate safeCoord = gameBoard.getRandomSafeCoordinate();
+                    Coordinates safeCoord = gameBoard.getRandomSafeCoordinate();
                     System.out.println("Dica: A célula " + safeCoord + " não tem mina.");
                     break;
                 case "cheat":

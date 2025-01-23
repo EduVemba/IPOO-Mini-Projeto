@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameBoard {
-    private char[][] gameGrid;
     private char[][] displayGrid;
     private int[][] adjacentMinesGrid;
     private boolean[][] mineLocations;
@@ -205,7 +204,7 @@ public class GameBoard {
      *
      * @return Coordenada aleatória.
      */
-    public Coordinate getRandomSafeCoordinate() {
+    public Coordinates getRandomSafeCoordinate() {
         Random rand = new Random();
         int row, col;
         do {
@@ -213,7 +212,7 @@ public class GameBoard {
             col = rand.nextInt(numCols);
         } while (mineLocations[row][col] || uncoveredCells[row][col] || !isValidCoordinate(row, col));
 
-        return new Coordinate(row, col);
+        return new Coordinates(row, col);
     }
 
     /**

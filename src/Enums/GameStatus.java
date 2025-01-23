@@ -1,4 +1,4 @@
-package config;
+package Enums;
 
 public enum GameStatus {
     Playing,

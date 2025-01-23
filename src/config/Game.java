@@ -1,5 +1,7 @@
 package config;
 
+import Enums.GameStatus;
+
 public class Game {
     private GameStatus gameStatus;
     private String nickname;

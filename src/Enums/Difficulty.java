@@ -30,7 +30,6 @@ public enum Difficulty {
         this.settings = settings;
     }
 
-    // Bloco estático para inicializar o mapa de valores
     static {
         for (Difficulty difficulty : Difficulty.values()) {
             map.put(difficulty.value, difficulty);
@@ -58,15 +57,6 @@ public enum Difficulty {
     }
 
     /**
-     * Retorna o valor inteiro associado à dificuldade.
-     *
-     * @return Valor inteiro da dificuldade.
-     */
-    public int getValue() {
-        return value;
-    }
-
-    /**
      * Retorna as configurações associadas à dificuldade.
      *
      * @return Configurações da dificuldade.
@@ -75,17 +65,4 @@ public enum Difficulty {
         return this.settings;
     }
 
-    /**
-     * Retorna uma representação em string da dificuldade.
-     *
-     * @return Nome da dificuldade.
-     */
-    @Override
-    public String toString() {
-        return switch (this) {
-            case Starter -> "Starter";
-            case Pro -> "Pro";
-            case Guru -> "Guru";
-        };
-    }
 }

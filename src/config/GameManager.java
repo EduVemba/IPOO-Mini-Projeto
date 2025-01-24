@@ -33,7 +33,7 @@ public class GameManager {
     public void displayStartMenu() {
         int choice;
         while (true) {
-            System.out.println("=== MENU ===");
+            System.out.println("#### MENU ####");
             System.out.println("1. Começar Jogo");
             System.out.println("2. Mostrar últimos " + LAST_GAME_AMOUNT + " jogos");
             System.out.println("3. Sair");
@@ -131,14 +131,6 @@ public class GameManager {
         }
     }
 
-    /**
-     * Retorna o número total de jogos iniciados.
-     *
-     * @return Número total de jogos.
-     */
-    public int getGameCount() {
-        return gameCount;
-    }
 
     /**
      * Interpreta e executa os comandos inseridos pelo usuário durante o jogo.
@@ -208,7 +200,6 @@ public class GameManager {
                 return;
             }
 
-            // Atualiza a exibição do tabuleiro
             System.out.println(gameBoard);
         }
     }
@@ -244,24 +235,25 @@ public class GameManager {
         lastWonGames[index] = game;
 
         if (currentGameStatus == GameStatus.WON) {
-            wonGameCount++; // Incrementa o contador de jogos ganhos
+            wonGameCount++;
         }
 
-        gameCount++; // Incrementa o contador de jogos
+        gameCount++;
         System.out.println("Jogo salvo com sucesso!");
     }
 
     /**
+     * Method displayHelp
      * Exibe a lista de comandos disponíveis.
      */
     private void displayHelp() {
         System.out.println("\n=== COMANDOS DISPONÍVEIS ===");
-        System.out.println("/help : Apresenta a lista de comandos, a sua função e utilização.");
-        System.out.println("/open <linha> <coluna> : Abre a célula nas coordenadas de tabuleiro - linha/coluna, e.g., /open A 2.");
-        System.out.println("/flag <linha> <coluna> : Marca a célula nas coordenadas de tabuleiro linha/coluna com uma bandeira. Se já existir uma bandeira nessa célula, remove-a.");
-        System.out.println("/hint : Sugere de forma aleatória, uma célula que não contém minas.");
-        System.out.println("/cheat : Comuta o jogo para modo de “batota”, onde as minas são reveladas a cada mostragem do tabuleiro.");
-        System.out.println("/quit : Termina o jogo e volta para o menu principal. Um jogo assim terminado não entra na lista de vitórias.");
+        System.out.println("/help : Apresenta a lista de comandos, a sua função e utilização.\n");
+        System.out.println("/open <linha> <coluna> : Abre a célula nas coordenadas de tabuleiro - linha/coluna, e.g., /open A 2.\n");
+        System.out.println("/flag <linha> <coluna> : Marca a célula nas coordenadas de tabuleiro linha/coluna com uma bandeira. Se já existir uma bandeira nessa célula, remove-a.\n");
+        System.out.println("/hint : Sugere de forma aleatória, uma célula que não contém minas.\n");
+        System.out.println("/cheat : Comuta o jogo para modo de “batota”, onde as minas são reveladas a cada mostragem do tabuleiro.\n");
+        System.out.println("/quit : Termina o jogo e volta para o menu principal. Um jogo assim terminado não entra na lista de vitórias.\n");
     }
 
     /**

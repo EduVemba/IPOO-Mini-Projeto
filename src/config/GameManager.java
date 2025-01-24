@@ -96,16 +96,16 @@ public class GameManager {
         }
 
         gameBoard = new GameBoard(settings.rows(), settings.cols(), settings.mines());
-        currentGameStatus = GameStatus.Playing; // Reinicializa o estado do jogo
+        currentGameStatus = GameStatus.PLAYING;// Reinicializa o estado do jogo
 
         System.out.println(gameBoard);
         isGameRunning = true;
         interpretCommands();
 
         // Verifica o estado do jogo após o término
-        if (currentGameStatus == GameStatus.Lost) {
+        if (currentGameStatus == GameStatus.LOST) {
             System.out.println("Jogo perdido. Voltando ao menu principal...");
-        } else if (currentGameStatus == GameStatus.Won) {
+        } else if (currentGameStatus == GameStatus.WON) {
             System.out.println("Jogo ganho. Voltando ao menu principal...");
         }
 
@@ -201,7 +201,7 @@ public class GameManager {
 
             // Verifica se o jogador venceu
             if (gameBoard.checkWin()) {
-                currentGameStatus = GameStatus.Won; // Define o estado do jogo como Won
+                currentGameStatus = GameStatus.WON; // Define o estado do jogo como Won
                 saveGame();
                 System.out.println("Parabéns, você venceu!");
                 isGameRunning = false;
@@ -224,7 +224,7 @@ public class GameManager {
             gameBoard.revealAllMines(row, col);
             System.out.println(gameBoard);
             System.out.println("Você acertou uma mina! Fim de jogo.");
-            currentGameStatus = GameStatus.Lost; // Define o estado do jogo como Lost
+            currentGameStatus = GameStatus.LOST; // Define o estado do jogo como Lost
             saveGame();
             isGameRunning = false;
             return;
@@ -243,7 +243,7 @@ public class GameManager {
         int index = (wonGameCount + gameCount - 1) % LAST_GAME_AMOUNT;
         lastWonGames[index] = game;
 
-        if (currentGameStatus == GameStatus.Won) {
+        if (currentGameStatus == GameStatus.WON) {
             wonGameCount++; // Incrementa o contador de jogos ganhos
         }
 

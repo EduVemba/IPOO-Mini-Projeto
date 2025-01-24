@@ -4,16 +4,16 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameBoard {
-    private char[][] displayGrid;
-    private int[][] adjacentMinesGrid;
-    private boolean[][] mineLocations;
-    private boolean[][] flagLocations;
-    private boolean[][] uncoveredCells;
-    private int numRows;
-    private int numCols;
-    private int totalMines;
+    private final char[][] displayGrid;
+    private final int[][] adjacentMinesGrid;
+    private final boolean[][] mineLocations;
+    private final boolean[][] flagLocations;
+    private final boolean[][] uncoveredCells;
+    private final int numRows;
+    private final int numCols;
+    private final int totalMines;
     private int remainingFlags;
-    private long startTime;
+    private final long startTime;
     private boolean isCheatEnabled;
 
     /**

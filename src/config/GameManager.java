@@ -247,14 +247,15 @@ public class GameManager {
      * Exibe a lista de comandos disponíveis.
      */
     private void displayHelp() {
-        System.out.println("\n=== COMANDOS DISPONÍVEIS ===");
+        System.out.println("\n=== COMANDOS DISPONIVEIS ===");
         System.out.println("/help : Apresenta a lista de comandos, a sua função e utilização.\n");
         System.out.println("/open <linha> <coluna> : Abre a célula nas coordenadas de tabuleiro - linha/coluna, e.g., /open A 2.\n");
         System.out.println("/flag <linha> <coluna> : Marca a célula nas coordenadas de tabuleiro linha/coluna com uma bandeira. Se já existir uma bandeira nessa célula, remove-a.\n");
         System.out.println("/hint : Sugere de forma aleatória, uma célula que não contém minas.\n");
-        System.out.println("/cheat : Comuta o jogo para modo de “batota”, onde as minas são reveladas a cada mostragem do tabuleiro.\n");
+        System.out.println("/cheat : Comuta o jogo para modo de \"batota\", onde as minas são reveladas a cada mostragem do tabuleiro.\n");
         System.out.println("/quit : Termina o jogo e volta para o menu principal. Um jogo assim terminado não entra na lista de vitórias.\n");
     }
+
 
     /**
      * Converte um caractere (A-Z ou 0-9) em um número.

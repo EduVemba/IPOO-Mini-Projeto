@@ -129,18 +129,18 @@ public class GameBoard {
      */
     private void updateCellVisual(int row, int col) {
         if (!uncoveredCells[row][col]) {
-            displayGrid[row][col] = '■';
+            displayGrid[row][col] = '*';
             if (isCheatEnabled) {
-                if (mineLocations[row][col]) displayGrid[row][col] = '◆';
+                if (mineLocations[row][col]) displayGrid[row][col] = 'X';
             }
-            if (flagLocations[row][col]) displayGrid[row][col] = '▶';
+            if (flagLocations[row][col]) displayGrid[row][col] = 'F';
             return;
         }
 
-        displayGrid[row][col] = '□';
+        displayGrid[row][col] = '*';
         if (adjacentMinesGrid[row][col] > 0) displayGrid[row][col] = (char) (adjacentMinesGrid[row][col] + '0');
-        if (flagLocations[row][col]) displayGrid[row][col] = '▶';
-        if (mineLocations[row][col]) displayGrid[row][col] = '◆';
+        if (flagLocations[row][col]) displayGrid[row][col] = 'F';
+        if (mineLocations[row][col]) displayGrid[row][col] = 'X';
     }
 
     /**
@@ -177,7 +177,7 @@ public class GameBoard {
             }
         }
         updateBoardVisual();
-        displayGrid[row][col] = '◈';
+        displayGrid[row][col] = 'X';
     }
 
     /**
